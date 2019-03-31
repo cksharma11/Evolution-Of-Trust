@@ -7,19 +7,20 @@ public class CoolPerson implements Player {
         this.score = 0;
     }
 
-    @Override
-    public void cooperate() {
-
-    }
 
     @Override
-    public void cheat() {
-
+    public MoveType cooperateOrCheat() {
+        return MoveType.COOPERATE;
     }
 
     @Override
     public void updateScore(Integer points) {
         this.score += points;
+    }
+
+    @Override
+    public Integer getScore() {
+        return this.score;
     }
 
 }

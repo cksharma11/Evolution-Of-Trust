@@ -1,7 +1,7 @@
 package com.step.gameoftrust;
 
 interface Player {
-    void cooperate();
-    void cheat();
+    MoveType cooperateOrCheat();
     void updateScore(Integer points);
+    Integer getScore();
 }
