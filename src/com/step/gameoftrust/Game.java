@@ -1,27 +1,36 @@
 package com.step.gameoftrust;
 
-class Game {
-    private Player player1;
-    private Player player2;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-    Game(Player player1, Player player2) {
-        this.player1 = player1;
-        this.player2 = player2;
+class Game {
+    private List<Player> players;
+    private Machine machine;
+    private List<Integer> score;
+
+    Game(List<Player> players) {
+        this.players = players;
+        this.machine = new Machine();
+        this.score = new ArrayList<>(Arrays.asList(0, 0));
     }
 
-    void conductRound(MoveType player1Move, MoveType player2Move){
-        if(player1Move.getWeight() > player2Move.getWeight()){
-            this.player1.updateScore(3);
-            this.player2.updateScore(-1);
-        }else if(player1Move.getWeight() < player2Move.getWeight()){
-            this.player1.updateScore(-1);
-            this.player2.updateScore(3);
-        }else if(player1Move.getWeight() == player2Move.getWeight() && player1Move == MoveType.CHEAT){
-            this.player1.updateScore(0);
-            this.player2.updateScore(0);
-        }else {
-            this.player1.updateScore(2);
-            this.player2.updateScore(2);
+    List<Integer> makeMove() {
+        List<Integer> score;
+        List<MoveType> moves = new ArrayList<>();
+
+        for (Player player : players) {
+            moves.add(player.makeMove());
         }
+
+        score = machine.getResult(moves);
+
+        this.players.get(0).setScore(score.get(0));
+        this.players.get(1).setScore(score.get(1));
+
+        this.score.set(0, this.score.get(0) + score.get(0));
+        this.score.set(1, this.score.get(1) + score.get(1));
+
+        return this.score;
     }
 }
