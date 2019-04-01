@@ -24,13 +24,21 @@ class Game {
         }
 
         score = machine.getResult(moves);
-
-        this.players.get(0).setScore(score.get(0));
-        this.players.get(1).setScore(score.get(1));
-
-        this.score.set(0, this.score.get(0) + score.get(0));
-        this.score.set(1, this.score.get(1) + score.get(1));
+        setPlayerLatestScore(score);
+        updateScore(score);
 
         return this.score;
     }
+
+    private void updateScore(List<Integer> score) {
+        this.score.set(0, this.score.get(0) + score.get(0));
+        this.score.set(1, this.score.get(1) + score.get(1));
+    }
+
+    private void setPlayerLatestScore(List<Integer> score) {
+        this.players.get(0).setScore(score.get(0));
+        this.players.get(1).setScore(score.get(1));
+    }
+
+
 }
